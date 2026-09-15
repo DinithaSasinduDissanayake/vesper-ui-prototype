@@ -5,10 +5,12 @@ import { Header } from "./components/Header";
 import { MetricsOverview } from "./components/MetricsOverview";
 import { VulnerabilityTable } from "./components/VulnerabilityTable";
 import { DetailDrawer } from "./components/DetailDrawer";
+import { LandingPage } from "./components/LandingPage";
 
 const mockCves = rawData as CVEItem[];
 
 export default function App() {
+  const [viewMode, setViewMode] = useState<"landing" | "console">("landing");
   const [cves] = useState<CVEItem[]>(mockCves);
   const [selectedCve, setSelectedCve] = useState<CVEItem | null>(null);
   const [capacity, setCapacity] = useState<number>(10);
@@ -28,8 +30,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#fafafa] text-zinc-950 flex flex-col antialiased selection:bg-zinc-200 selection:text-zinc-950">
-      {/* Top Navbar */}
+      {/* Top Navbar with Seamless View Switcher */}
       <Header
+        viewMode={viewMode}
+        setViewMode={setViewMode}
         capacity={capacity}
         setCapacity={setCapacity}
         cluster={cluster}
@@ -37,28 +41,32 @@ export default function App() {
         clusters={clusters}
       />
 
-      {/* Main Full-Width Content Container */}
-      <main className="flex-1 max-w-[1560px] w-full mx-auto px-4 sm:px-6 py-5 flex flex-col">
-        {/* Triage Overview Status Ribbon */}
-        <MetricsOverview
-          immediateCount={immediateCount}
-          scheduledCount={scheduledCount}
-          deferredCount={deferredCount}
-          totalCount={totalClusterCves}
-        />
-
-        {/* Full-Width Remediation Data Table (100% Horizontal Viewport) */}
-        <div className="flex-1 w-full mt-2">
-          <VulnerabilityTable
-            cves={cves}
-            selectedCve={selectedCve}
-            onSelectCve={(cve) => setSelectedCve(cve)}
-            capacity={capacity}
+      {/* Main Content Area */}
+      {viewMode === "landing" ? (
+        <LandingPage onLaunchConsole={() => setViewMode("console")} />
+      ) : (
+        <main className="flex-1 max-w-[1560px] w-full mx-auto px-4 sm:px-6 py-5 flex flex-col animate-in fade-in duration-150">
+          {/* Triage Overview Status Ribbon */}
+          <MetricsOverview
+            immediateCount={immediateCount}
+            scheduledCount={scheduledCount}
+            deferredCount={deferredCount}
+            totalCount={totalClusterCves}
           />
-        </div>
-      </main>
 
-      {/* Contextual Slide-Over Drawer for Deep Multi-Modal Explainability */}
+          {/* Full-Width Remediation Data Table (100% Horizontal Viewport) */}
+          <div className="flex-1 w-full mt-2">
+            <VulnerabilityTable
+              cves={cves}
+              selectedCve={selectedCve}
+              onSelectCve={(cve) => setSelectedCve(cve)}
+              capacity={capacity}
+            />
+          </div>
+        </main>
+      )}
+
+      {/* Contextual Slide-Over Drawer for Deep Multi-Modal Explainability (Available when CVE selected) */}
       <DetailDrawer
         cve={selectedCve}
         onClose={() => setSelectedCve(null)}
