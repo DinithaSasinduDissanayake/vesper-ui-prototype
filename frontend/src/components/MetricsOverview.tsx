@@ -1,5 +1,5 @@
 import React from "react";
-import { AlertTriangle, Clock, ShieldCheck, TrendingDown } from "lucide-react";
+import { Layers } from "lucide-react";
 
 interface MetricsOverviewProps {
   immediateCount: number;
@@ -17,98 +17,53 @@ export const MetricsOverview: React.FC<MetricsOverviewProps> = ({
   const reductionPercentage = ((deferredCount / totalCount) * 100).toFixed(0);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-      {/* Immediate Attention Card */}
-      <div className="relative overflow-hidden rounded-xl border border-red-500/20 bg-gradient-to-b from-red-950/20 to-slate-900/50 p-4.5 transition-all hover:border-red-500/40 group">
-        <div className="flex items-center justify-between">
+    <div className="bg-[#121215] border border-zinc-800/80 rounded-lg px-4 py-2.5 mb-4 shadow-xs">
+      <div className="flex flex-wrap items-center justify-between gap-y-3 gap-x-6 text-xs">
+        {/* Left: Cluster Inventory Overview */}
+        <div className="flex items-center gap-2.5 text-zinc-300">
+          <Layers className="w-4 h-4 text-zinc-400" />
+          <span className="text-zinc-400">Total Ingestion Scope:</span>
+          <span className="font-mono font-bold text-zinc-100 text-sm">
+            {totalCount.toLocaleString()}
+          </span>
+          <span className="text-zinc-400 text-[11px]">Raw Scanner CVEs</span>
+        </div>
+
+        {/* Right: Operational Triage Distribution Ribbon */}
+        <div className="flex items-center gap-3 sm:gap-5 flex-wrap">
+          {/* Immediate < 24h Tier */}
           <div className="flex items-center gap-2">
-            <span className="flex h-2.5 w-2.5 rounded-full bg-red-500 animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-wider text-red-400">
-              Immediate Attention
+            <span className="flex h-2 w-2 rounded-full bg-rose-500" />
+            <span className="text-zinc-400">Critical Action (&lt;24h):</span>
+            <span className="font-mono font-bold text-rose-400 bg-rose-950/40 border border-rose-900/50 px-2 py-0.5 rounded text-xs">
+              {immediateCount}
             </span>
           </div>
-          <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
-            &lt; 24h Window
-          </span>
-        </div>
 
-        <div className="mt-3 flex items-baseline gap-2">
-          <span className="text-3xl font-extrabold tracking-tight text-white font-mono">
-            {immediateCount}
-          </span>
-          <span className="text-xs text-slate-400 font-medium">Critical CVEs</span>
-        </div>
+          <span className="text-zinc-800 hidden sm:inline">|</span>
 
-        <p className="mt-1.5 text-xs text-slate-400 leading-relaxed">
-          High weaponization velocity &amp; public exploit observed. Requires hotfix or perimeter mitigation.
-        </p>
-
-        <div className="mt-3 flex items-center gap-1.5 text-[11px] text-red-400/90 font-medium">
-          <AlertTriangle className="w-3.5 h-3.5" />
-          <span>Breach Probability &gt; 92%</span>
-        </div>
-      </div>
-
-      {/* Scheduled Triage Card */}
-      <div className="relative overflow-hidden rounded-xl border border-amber-500/20 bg-gradient-to-b from-amber-950/20 to-slate-900/50 p-4.5 transition-all hover:border-amber-500/40 group">
-        <div className="flex items-center justify-between">
+          {/* Scheduled < 7d Tier */}
           <div className="flex items-center gap-2">
-            <span className="flex h-2.5 w-2.5 rounded-full bg-amber-500" />
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
-              Scheduled Triage
+            <span className="flex h-2 w-2 rounded-full bg-amber-500" />
+            <span className="text-zinc-400">Scheduled Sprint (&lt;7d):</span>
+            <span className="font-mono font-bold text-amber-400 bg-amber-950/40 border border-amber-900/50 px-2 py-0.5 rounded text-xs">
+              {scheduledCount}
             </span>
           </div>
-          <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
-            &lt; 7d Sprint
-          </span>
-        </div>
 
-        <div className="mt-3 flex items-baseline gap-2">
-          <span className="text-3xl font-extrabold tracking-tight text-white font-mono">
-            {scheduledCount}
-          </span>
-          <span className="text-xs text-slate-400 font-medium">Elevated CVEs</span>
-        </div>
+          <span className="text-zinc-800 hidden sm:inline">|</span>
 
-        <p className="mt-1.5 text-xs text-slate-400 leading-relaxed">
-          PoC weaponization forecast within next 7–14 days. Patch scheduled in standard sprint release.
-        </p>
-
-        <div className="mt-3 flex items-center gap-1.5 text-[11px] text-amber-400/90 font-medium">
-          <Clock className="w-3.5 h-3.5" />
-          <span>Survival window: ~5.8 days</span>
-        </div>
-      </div>
-
-      {/* Safely Deferred Backlog Card */}
-      <div className="relative overflow-hidden rounded-xl border border-emerald-500/20 bg-gradient-to-b from-emerald-950/20 to-slate-900/50 p-4.5 transition-all hover:border-emerald-500/40 group">
-        <div className="flex items-center justify-between">
+          {/* Safely Deferred */}
           <div className="flex items-center gap-2">
-            <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-              Safely Deferred
+            <span className="flex h-2 w-2 rounded-full bg-emerald-500" />
+            <span className="text-zinc-400">Safely Deferred:</span>
+            <span className="font-mono font-bold text-zinc-200">
+              {deferredCount.toLocaleString()}
+            </span>
+            <span className="text-[11px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-900/40 px-1.5 py-0.5 rounded">
+              -{reductionPercentage}% fatigue
             </span>
           </div>
-          <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
-            <TrendingDown className="w-3 h-3" />
-            -{reductionPercentage}% Alert Fatigue
-          </span>
-        </div>
-
-        <div className="mt-3 flex items-baseline gap-2">
-          <span className="text-3xl font-extrabold tracking-tight text-white font-mono">
-            {deferredCount.toLocaleString()}
-          </span>
-          <span className="text-xs text-slate-400 font-medium">Suppressed Noise</span>
-        </div>
-
-        <p className="mt-1.5 text-xs text-slate-400 leading-relaxed">
-          Unreachable code paths, isolated dev sandboxes, or zero exploit weaponization indicators.
-        </p>
-
-        <div className="mt-3 flex items-center gap-1.5 text-[11px] text-emerald-400/90 font-medium">
-          <ShieldCheck className="w-3.5 h-3.5" />
-          <span>Zero incident risk for 30+ days</span>
         </div>
       </div>
     </div>
