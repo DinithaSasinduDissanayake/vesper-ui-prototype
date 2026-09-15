@@ -1,7 +1,15 @@
 import React from "react";
 import type { CVEItem } from "../types/cve";
 import {
-  X,
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
   Copy,
   Check,
   Radio,
@@ -13,7 +21,7 @@ import {
   Server,
   AlertOctagon,
   Share2,
-  ExternalLink
+  ExternalLink,
 } from "lucide-react";
 
 interface DetailDrawerProps {
@@ -42,95 +50,73 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
   const blastServices = blastRadiusMatch ? blastRadiusMatch[0] : "Local";
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
-      {/* Dimmed backdrop */}
-      <div
-        className="fixed inset-0 bg-black/30 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
-        onClick={onClose}
-      />
-
-      {/* Slide-over sheet panel */}
-      <aside className="relative w-full max-w-2xl bg-white border-l border-zinc-200 h-full shadow-xl overflow-y-auto flex flex-col z-10 animate-in slide-in-from-right duration-250">
+    <Sheet open={!!cve} onOpenChange={(open: boolean) => !open && onClose()}>
+      <SheetContent
+        side="right"
+        className="w-full sm:max-w-2xl p-0 flex flex-col h-full bg-white border-l border-zinc-200 shadow-xl overflow-hidden"
+      >
         {/* Drawer Header */}
-        <div className="p-6 border-b border-zinc-200 sticky top-0 bg-white/95 backdrop-blur z-20 flex items-start justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2.5 flex-wrap mb-1.5">
-              <span className="font-mono text-base font-bold text-zinc-950 tracking-tight">
-                {cve.cve_id}
-              </span>
-              <button
-                onClick={copyToClipboard}
-                title="Copy CVE ID"
-                className="p-1 rounded text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 transition-colors"
-              >
-                {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
-              </button>
-
-              <span
-                className={`text-xs font-mono font-bold px-2.5 py-0.5 rounded border ${
-                  isCritical
-                    ? "bg-rose-50 text-rose-800 border-rose-200"
-                    : "bg-amber-50 text-amber-800 border-amber-200"
-                }`}
-              >
-                {cve.tier} TIER
-              </span>
-
-              <span className="text-xs font-mono px-2 py-0.5 rounded bg-zinc-100 text-zinc-700 border border-zinc-200 font-medium">
-                CVSS {cve.cvss_score.toFixed(1)} Base
-              </span>
-            </div>
-
-            <h2 className="text-lg font-bold text-zinc-950 leading-snug">
-              {cve.name}
-            </h2>
-
-            <div className="flex items-center gap-2 text-sm text-zinc-600 font-mono mt-2">
-              <span>Component:</span>
-              <span className="text-zinc-900 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200 font-semibold">
-                {cve.component}
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 shrink-0">
-            <div className="text-right hidden sm:block">
-              <span className="text-[11px] text-zinc-500 block uppercase tracking-wider font-mono">
-                SLA Target
-              </span>
-              <span
-                className={`text-xs font-mono font-bold px-2 py-0.5 rounded mt-0.5 inline-block border ${
-                  cve.action_window.includes("24")
-                    ? "text-rose-800 bg-rose-50 border-rose-200"
-                    : "text-amber-800 bg-amber-50 border-amber-200"
-                }`}
-              >
-                {cve.action_window}
-              </span>
-            </div>
-
-            <button
-              onClick={onClose}
-              className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-950 hover:bg-zinc-100 transition-colors cursor-pointer"
+        <SheetHeader className="p-6 border-b border-zinc-200 bg-white sticky top-0 z-20 text-left">
+          <div className="flex items-center gap-2.5 flex-wrap mb-1.5">
+            <span className="font-mono text-base font-bold text-zinc-950 tracking-tight">
+              {cve.cve_id}
+            </span>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={copyToClipboard}
+              className="h-7 w-7 text-zinc-400 hover:text-zinc-700"
+              title="Copy CVE ID"
             >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
+              {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4 text-zinc-500" />}
+            </Button>
 
-        {/* Drawer Content Body */}
-        <div className="p-6 space-y-6 flex-1 text-sm">
-          {/* Executive Urgency Banner */}
-          <div className="p-4 rounded-lg bg-zinc-50 border border-zinc-200 text-zinc-800 leading-relaxed">
+            <Badge
+              variant={isCritical ? "critical" : "high"}
+              className="font-mono text-xs font-bold"
+            >
+              {cve.tier} TIER
+            </Badge>
+
+            <Badge variant="outline" className="font-mono text-xs text-zinc-700">
+              CVSS {cve.cvss_score.toFixed(1)} Base
+            </Badge>
+
+            <div className="ml-auto pr-6">
+              <Badge
+                variant={cve.action_window.includes("24") ? "critical" : "high"}
+                className="font-mono text-xs px-2.5 py-0.5 font-bold"
+              >
+                SLA: {cve.action_window}
+              </Badge>
+            </div>
+          </div>
+
+          <SheetTitle className="text-lg font-bold text-zinc-950 leading-snug">
+            {cve.name}
+          </SheetTitle>
+
+          <div className="flex items-center gap-2 text-sm text-zinc-600 font-mono mt-1">
+            <span>Component:</span>
+            <span className="text-zinc-900 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200 font-semibold text-xs">
+              {cve.component}
+            </span>
+          </div>
+        </SheetHeader>
+
+        {/* Drawer Scrollable Body */}
+        <div className="p-6 space-y-6 flex-1 overflow-y-auto text-sm">
+          {/* Executive Urgency Callout Card */}
+          <Card className="p-4 bg-zinc-50/80 border-zinc-200 text-zinc-800 leading-relaxed shadow-none">
             <span className="font-semibold text-zinc-900 block mb-1 text-xs uppercase tracking-wider font-mono text-zinc-600">
               Why Prioritized (Executive Triage Decision):
             </span>
             <p className="text-zinc-800 text-sm leading-relaxed">{cve.why_prioritized}</p>
-          </div>
+          </Card>
 
           {/* 4-Metric Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="bg-zinc-50 border border-zinc-200 p-3 rounded-lg">
+            <Card className="p-3 bg-zinc-50/50 border-zinc-200 shadow-none">
               <span className="text-[11px] text-zinc-500 uppercase font-mono tracking-wider block font-semibold">
                 Base Severity
               </span>
@@ -140,9 +126,9 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                 </span>
                 <span className="text-xs text-zinc-500">/ 10</span>
               </div>
-            </div>
+            </Card>
 
-            <div className="bg-zinc-50 border border-zinc-200 p-3 rounded-lg">
+            <Card className="p-3 bg-zinc-50/50 border-zinc-200 shadow-none">
               <span className="text-[11px] text-zinc-500 uppercase font-mono tracking-wider block font-semibold">
                 NLP Risk (A)
               </span>
@@ -152,9 +138,9 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                 </span>
                 <span className="text-xs text-zinc-500">score</span>
               </div>
-            </div>
+            </Card>
 
-            <div className="bg-zinc-50 border border-zinc-200 p-3 rounded-lg">
+            <Card className="p-3 bg-zinc-50/50 border-zinc-200 shadow-none">
               <span className="text-[11px] text-zinc-500 uppercase font-mono tracking-wider block font-semibold">
                 Velocity (B)
               </span>
@@ -163,9 +149,9 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                   {cve.timing_forecast.velocity.split(" ")[0]}
                 </span>
               </div>
-            </div>
+            </Card>
 
-            <div className="bg-zinc-50 border border-zinc-200 p-3 rounded-lg">
+            <Card className="p-3 bg-zinc-50/50 border-zinc-200 shadow-none">
               <span className="text-[11px] text-zinc-500 uppercase font-mono tracking-wider block font-semibold">
                 Blast Radius (C)
               </span>
@@ -175,11 +161,11 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                 </span>
                 <span className="text-xs text-zinc-500">services</span>
               </div>
-            </div>
+            </Card>
           </div>
 
           {/* Section 1: Component A (Dinitha) */}
-          <div className="rounded-lg border border-zinc-200 bg-white p-4 space-y-3 shadow-2xs">
+          <Card className="p-4 space-y-3 shadow-2xs">
             <div className="flex items-center gap-2.5 pb-2 border-b border-zinc-100">
               <FileText className="w-4 h-4 text-zinc-500" />
               <div>
@@ -213,10 +199,10 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                 "{cve.semantic_text.signal}"
               </p>
             </div>
-          </div>
+          </Card>
 
           {/* Section 2: Component B (Sithmini) */}
-          <div className="rounded-lg border border-zinc-200 bg-white p-4 space-y-3 shadow-2xs">
+          <Card className="p-4 space-y-3 shadow-2xs">
             <div className="flex items-center gap-2.5 pb-2 border-b border-zinc-100">
               <Clock className="w-4 h-4 text-zinc-500" />
               <div>
@@ -250,10 +236,10 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                 </span>
               </div>
             </div>
-          </div>
+          </Card>
 
           {/* Section 3: Component C (Thilanka) */}
-          <div className="rounded-lg border border-zinc-200 bg-white p-4 space-y-3 shadow-2xs">
+          <Card className="p-4 space-y-3 shadow-2xs">
             <div className="flex items-center gap-2.5 pb-2 border-b border-zinc-100">
               <Network className="w-4 h-4 text-zinc-500" />
               <div>
@@ -296,10 +282,10 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                 {cve.asset_reachability.blast_radius}
               </p>
             </div>
-          </div>
+          </Card>
 
           {/* Section 4: Component D (Bhuvani) */}
-          <div className="rounded-lg border border-zinc-200 bg-white p-4 space-y-3 shadow-2xs">
+          <Card className="p-4 space-y-3 shadow-2xs">
             <div className="flex items-center gap-2.5 pb-2 border-b border-zinc-100">
               <Scale className="w-4 h-4 text-zinc-500" />
               <div>
@@ -320,9 +306,9 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                   {cve.triage_allocation.decision}
                 </span>
               </div>
-              <span className="font-mono text-xs px-2.5 py-1 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">
+              <Badge variant="routine" className="font-mono text-xs">
                 ROI Maxima
-              </span>
+              </Badge>
             </div>
 
             <div>
@@ -331,27 +317,31 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                 {cve.triage_allocation.rationale}
               </p>
             </div>
-          </div>
+          </Card>
         </div>
 
         {/* Drawer Sticky Footer Actions */}
         <div className="p-4 border-t border-zinc-200 bg-white flex items-center justify-between gap-3">
-          <button
+          <Button
+            variant="outline"
+            size="sm"
             onClick={copyToClipboard}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-zinc-300 bg-white hover:bg-zinc-50 text-xs font-semibold text-zinc-700 transition-colors shadow-2xs"
+            className="text-xs font-semibold"
           >
-            <Copy className="w-4 h-4" />
+            <Copy className="w-4 h-4 mr-2" />
             {copied ? "Copied!" : "Copy CVE Details"}
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="default"
+            size="sm"
             onClick={() => alert(`Remediation ticket for ${cve.cve_id} dispatched to SecOps tracking queue.`)}
-            className="flex items-center gap-2 px-5 py-2 rounded-lg bg-zinc-950 hover:bg-zinc-850 text-white text-xs font-bold transition-colors shadow-xs"
+            className="text-xs font-bold shadow-xs"
           >
-            <ExternalLink className="w-4 h-4" />
+            <ExternalLink className="w-4 h-4 mr-2" />
             Create Remediation Ticket
-          </button>
+          </Button>
         </div>
-      </aside>
-    </div>
+      </SheetContent>
+    </Sheet>
   );
 };

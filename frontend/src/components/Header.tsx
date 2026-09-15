@@ -1,4 +1,5 @@
 import React from "react";
+import { Badge } from "@/components/ui/badge";
 import { ChevronDown, SlidersHorizontal } from "lucide-react";
 
 interface HeaderProps {
@@ -28,9 +29,9 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="font-bold text-base tracking-tight text-zinc-950">
               VESPER
             </span>
-            <span className="text-[11px] font-mono px-1.5 py-0.5 rounded bg-zinc-100 text-zinc-600 border border-zinc-200">
+            <Badge variant="outline" className="font-mono text-[11px] px-1.5 py-0 text-zinc-600 bg-zinc-50 border-zinc-200">
               v2.4
-            </span>
+            </Badge>
             <span className="text-xs text-zinc-500 hidden md:inline border-l border-zinc-200 pl-2.5 ml-0.5">
               Vulnerability Prioritization &amp; Explainability Platform
             </span>
@@ -42,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Target Cluster Selector */}
           <div className="relative flex items-center">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-zinc-50 border border-zinc-200 text-xs text-zinc-700 hover:border-zinc-300 transition-colors">
-              <span className="text-[11px] text-zinc-500 uppercase tracking-wider font-mono">
+              <span className="text-[11px] text-zinc-500 uppercase tracking-wider font-mono font-medium">
                 Scope:
               </span>
               <select
@@ -61,7 +62,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Slicing Capacity Controls */}
-          <div className="flex items-center bg-zinc-50 border border-zinc-200 rounded-md p-0.5">
+          <div className="flex items-center bg-zinc-100 border border-zinc-200 rounded-md p-0.5">
             <div className="flex items-center gap-1.5 px-2.5 text-xs text-zinc-600 font-medium">
               <SlidersHorizontal className="w-3.5 h-3.5 text-zinc-500" />
               <span className="hidden sm:inline">Triage Cap:</span>
