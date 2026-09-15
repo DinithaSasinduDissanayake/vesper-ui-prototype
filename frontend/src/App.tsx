@@ -4,13 +4,13 @@ import type { CVEItem } from "./types/cve";
 import { Header } from "./components/Header";
 import { MetricsOverview } from "./components/MetricsOverview";
 import { VulnerabilityTable } from "./components/VulnerabilityTable";
-import { ExplainabilityPanel } from "./components/ExplainabilityPanel";
+import { DetailDrawer } from "./components/DetailDrawer";
 
 const mockCves = rawData as CVEItem[];
 
 export default function App() {
   const [cves] = useState<CVEItem[]>(mockCves);
-  const [selectedCve, setSelectedCve] = useState<CVEItem>(mockCves[0]);
+  const [selectedCve, setSelectedCve] = useState<CVEItem | null>(null);
   const [capacity, setCapacity] = useState<number>(10);
   const [cluster, setCluster] = useState<string>("Acme Corp Production Cluster (1,240 CVEs)");
 
@@ -37,9 +37,9 @@ export default function App() {
         clusters={clusters}
       />
 
-      {/* Main Body: Expanded to 1560px for comfortable desktop breathing room */}
-      <main className="flex-1 max-w-[1560px] w-full mx-auto px-4 sm:px-6 py-4 flex flex-col">
-        {/* Sleek Triage Header Bar (Replaces Chunky 3 Cards) */}
+      {/* Main Full-Width Content Container */}
+      <main className="flex-1 max-w-[1560px] w-full mx-auto px-4 sm:px-6 py-5 flex flex-col">
+        {/* Triage Overview Status Ribbon */}
         <MetricsOverview
           immediateCount={immediateCount}
           scheduledCount={scheduledCount}
@@ -47,28 +47,26 @@ export default function App() {
           totalCount={totalClusterCves}
         />
 
-        {/* Split View: Left Queue + Right Inspector Panel */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 min-h-[640px] items-stretch">
-          {/* Left Column: Triage Action Queue */}
-          <div className="lg:col-span-7 flex flex-col h-full">
-            <VulnerabilityTable
-              cves={cves}
-              selectedCve={selectedCve}
-              onSelectCve={setSelectedCve}
-              capacity={capacity}
-            />
-          </div>
-
-          {/* Right Column: Multi-Modal Explainability Inspector */}
-          <div className="lg:col-span-5 flex flex-col h-full">
-            <ExplainabilityPanel cve={selectedCve} />
-          </div>
+        {/* Full-Width Remediation Data Table (100% Horizontal Viewport) */}
+        <div className="flex-1 w-full mt-2">
+          <VulnerabilityTable
+            cves={cves}
+            selectedCve={selectedCve}
+            onSelectCve={(cve) => setSelectedCve(cve)}
+            capacity={capacity}
+          />
         </div>
       </main>
 
+      {/* Contextual Slide-Over Drawer for Deep Multi-Modal Explainability */}
+      <DetailDrawer
+        cve={selectedCve}
+        onClose={() => setSelectedCve(null)}
+      />
+
       {/* Sleek Minimal Footer */}
-      <footer className="border-t border-zinc-800 bg-[#0c0c0e] py-2.5 text-center text-xs text-zinc-400 font-mono">
-        VESPER Research Architecture • Group J26-DS-344 (Dinitha • Sithmini • Thilanka • Bhuvani) • Production Prototype
+      <footer className="border-t border-zinc-800 bg-[#0c0c0e] py-3 text-center text-xs text-zinc-400 font-mono">
+        VESPER Research Architecture • Group J26-DS-344 (Dinitha • Sithmini • Thilanka • Bhuvani) • Enterprise Prototype
       </footer>
     </div>
   );
