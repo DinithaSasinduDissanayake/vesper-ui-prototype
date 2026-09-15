@@ -2,3 +2,14 @@ __pycache__/
 .venv/
 *.pyc
 .DS_Store
+
+# Node / Frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
+.env
+.env.*.local
+frontend/node_modules/
+frontend/dist/
+frontend/.cache/
