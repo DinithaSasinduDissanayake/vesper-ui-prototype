@@ -1,0 +1,350 @@
+[
+  {
+    "cve_id": "CVE-2021-44228",
+    "name": "Log4Shell JNDI Remote Code Execution",
+    "component": "org.apache.logging.log4j:log4j-core",
+    "cvss_score": 10.0,
+    "tier": "CRITICAL",
+    "exploit_urgency": "Active in Wild (CISA KEV)",
+    "action_window": "< 24 Hours",
+    "why_prioritized": "Unauthenticated remote code execution via arbitrary LDAP/JNDI lookups with active mass exploitation in the wild.",
+    "semantic_text": {
+      "cwe": "CWE-502 / CWE-400 (Deserialization of Untrusted Data)",
+      "semantic_risk": "Critical (0.98)",
+      "signal": "Remote JNDI injection string patterns detected in CVE description text."
+    },
+    "timing_forecast": {
+      "status": "Exploited in Wild",
+      "time_to_exploit": "Immediate (< 1 day)",
+      "velocity": "Extreme (Top 0.1% weaponization velocity)"
+    },
+    "asset_reachability": {
+      "exposure": "Internet-Facing Service",
+      "criticality": "Tier-1 Production Gateway",
+      "blast_radius": "94 downstream internal microservices affected"
+    },
+    "triage_allocation": {
+      "decision": "Prioritized in Sprint Top-1",
+      "rationale": "High breach probability (0.96) and extreme blast radius yield maximum knapsack risk-reduction return."
+    }
+  },
+  {
+    "cve_id": "CVE-2023-34362",
+    "name": "MOVEit Transfer SQLi RCE",
+    "component": "progress:moveit_transfer",
+    "cvss_score": 9.8,
+    "tier": "CRITICAL",
+    "exploit_urgency": "Active in Wild (CISA KEV)",
+    "action_window": "< 24 Hours",
+    "why_prioritized": "Critical SQL injection vulnerability leading to unauthorized privilege escalation and arbitrary code execution.",
+    "semantic_text": {
+      "cwe": "CWE-89 (Improper Neutralization of Special Elements in SQL Command)",
+      "semantic_risk": "Critical (0.95)",
+      "signal": "Web application database bypass indicators extracted from advisory."
+    },
+    "timing_forecast": {
+      "status": "Exploited in Wild",
+      "time_to_exploit": "Immediate (< 2 days)",
+      "velocity": "Extreme (Clop ransomware campaign)"
+    },
+    "asset_reachability": {
+      "exposure": "Internet-Facing DMZ",
+      "criticality": "Tier-1 File Transfer Infrastructure",
+      "blast_radius": "Direct exfiltration channel for customer PII and financial records"
+    },
+    "triage_allocation": {
+      "decision": "Prioritized in Sprint Top-2",
+      "rationale": "High probability of extortion and data exfiltration warrants immediate allocation."
+    }
+  },
+  {
+    "cve_id": "CVE-2023-4966",
+    "name": "Citrix Bleed Sensitive Information Disclosure",
+    "component": "citrix:netscaler_adc",
+    "cvss_score": 9.4,
+    "tier": "CRITICAL",
+    "exploit_urgency": "Active in Wild (CISA KEV)",
+    "action_window": "< 24 Hours",
+    "why_prioritized": "Buffer over-read allows unauthenticated attackers to harvest active session tokens and bypass MFA.",
+    "semantic_text": {
+      "cwe": "CWE-119 (Improper Restriction of Operations within the Bounds of a Memory Buffer)",
+      "semantic_risk": "High (0.92)",
+      "signal": "Memory leak semantics detected enabling persistent credential hijacking."
+    },
+    "timing_forecast": {
+      "status": "Exploited in Wild",
+      "time_to_exploit": "Immediate (< 3 days)",
+      "velocity": "High (Rapid post-disclosure exploitation)"
+    },
+    "asset_reachability": {
+      "exposure": "Perimeter VPN Gateway",
+      "criticality": "Authentication Boundary",
+      "blast_radius": "Full enterprise SSO boundary compromise"
+    },
+    "triage_allocation": {
+      "decision": "Prioritized in Sprint Top-3",
+      "rationale": "Bypasses all multi-factor authentication; highest priority for perimeter defense."
+    }
+  },
+  {
+    "cve_id": "CVE-2022-22965",
+    "name": "Spring4Shell ClassLoader Access RCE",
+    "component": "org.springframework:spring-beans",
+    "cvss_score": 9.8,
+    "tier": "CRITICAL",
+    "exploit_urgency": "Active in Wild (CISA KEV)",
+    "action_window": "< 24 Hours",
+    "why_prioritized": "Unauthenticated RCE via data binding ClassLoader access in Spring Framework applications on Tomcat.",
+    "semantic_text": {
+      "cwe": "CWE-94 (Improper Control of Generation of Code)",
+      "semantic_risk": "High (0.89)",
+      "signal": "Arbitrary code execution via parameter binding semantics."
+    },
+    "timing_forecast": {
+      "status": "Exploited in Wild",
+      "time_to_exploit": "< 5 days",
+      "velocity": "High (Targeted botnet scanning)"
+    },
+    "asset_reachability": {
+      "exposure": "Public Microservices API",
+      "criticality": "Production Java Workloads",
+      "blast_radius": "12 core internal container clusters"
+    },
+    "triage_allocation": {
+      "decision": "Prioritized in Sprint Top-4",
+      "rationale": "Public facing API vulnerability with functional exploit chains."
+    }
+  },
+  {
+    "cve_id": "CVE-2023-23397",
+    "name": "Microsoft Outlook NTLM Relay Credential Theft",
+    "component": "microsoft:outlook",
+    "cvss_score": 9.8,
+    "tier": "HIGH",
+    "exploit_urgency": "Public PoC Available",
+    "action_window": "< 7 Days",
+    "why_prioritized": "Zero-click NTLM credential relay triggered simply by receiving a malicious calendar appointment notification.",
+    "semantic_text": {
+      "cwe": "CWE-287 (Improper Authentication)",
+      "semantic_risk": "High (0.86)",
+      "signal": "Authentication coerce and relay language detected in advisory text."
+    },
+    "timing_forecast": {
+      "status": "Weaponized PoC",
+      "time_to_exploit": "< 7 days",
+      "velocity": "Moderate (Targeted state actor usage)"
+    },
+    "asset_reachability": {
+      "exposure": "Corporate Endpoints",
+      "criticality": "Executive & Staff Laptops",
+      "blast_radius": "Enterprise Active Directory domain hashes"
+    },
+    "triage_allocation": {
+      "decision": "Prioritized in Sprint Top-5",
+      "rationale": "High likelihood of credential harvesting requires scheduled endpoint patch cycle."
+    }
+  },
+  {
+    "cve_id": "CVE-2021-34527",
+    "name": "PrintNightmare Windows Print Spooler RCE",
+    "component": "microsoft:windows_print_spooler",
+    "cvss_score": 8.8,
+    "tier": "HIGH",
+    "exploit_urgency": "Public PoC Available",
+    "action_window": "< 7 Days",
+    "why_prioritized": "Local and remote privilege escalation and arbitrary code execution with SYSTEM privileges via RpcAddPrinterDriverEx.",
+    "semantic_text": {
+      "cwe": "CWE-269 (Improper Privilege Management)",
+      "semantic_risk": "High (0.84)",
+      "signal": "Privilege escalation and DLL injection patterns identified."
+    },
+    "timing_forecast": {
+      "status": "Weaponized PoC",
+      "time_to_exploit": "< 7 days",
+      "velocity": "Moderate (Multiple open GitHub exploit scripts)"
+    },
+    "asset_reachability": {
+      "exposure": "Internal Domain Controllers",
+      "criticality": "Core Infrastructure",
+      "blast_radius": "Full forest administrative compromise"
+    },
+    "triage_allocation": {
+      "decision": "Prioritized in Sprint Top-6",
+      "rationale": "Standard lateral movement vector in enterprise intrusions."
+    }
+  },
+  {
+    "cve_id": "CVE-2020-1472",
+    "name": "Zerologon Netlogon Cryptographic Bypass",
+    "component": "microsoft:netlogon",
+    "cvss_score": 10.0,
+    "tier": "HIGH",
+    "exploit_urgency": "Public PoC Available",
+    "action_window": "< 7 Days",
+    "why_prioritized": "Insecure AES-CFB8 implementation allows establishing an unauthenticated Netlogon session to a Domain Controller.",
+    "semantic_text": {
+      "cwe": "CWE-330 (Use of Insufficiently Random Values)",
+      "semantic_risk": "High (0.88)",
+      "signal": "Cryptographic authentication flaw permitting machine account password reset."
+    },
+    "timing_forecast": {
+      "status": "Weaponized PoC",
+      "time_to_exploit": "< 10 days",
+      "velocity": "Moderate (Automated exploit tools in Metasploit)"
+    },
+    "asset_reachability": {
+      "exposure": "Internal Active Directory",
+      "criticality": "Identity Provider",
+      "blast_radius": "Instant elevation to Domain Admin"
+    },
+    "triage_allocation": {
+      "decision": "Prioritized in Sprint Top-7",
+      "rationale": "Critical internal risk; prioritized for weekend maintenance window."
+    }
+  },
+  {
+    "cve_id": "CVE-2019-19781",
+    "name": "Citrix ADC / Gateway Path Traversal RCE",
+    "component": "citrix:application_delivery_controller",
+    "cvss_score": 9.8,
+    "tier": "HIGH",
+    "exploit_urgency": "Public PoC Available",
+    "action_window": "< 7 Days",
+    "why_prioritized": "Directory traversal in Citrix VPN portal allows unauthenticated arbitrary code execution via Perl script invocation.",
+    "semantic_text": {
+      "cwe": "CWE-22 (Improper Limitation of a Pathname to a Restricted Directory)",
+      "semantic_risk": "High (0.82)",
+      "signal": "Path traversal and remote command invocation text patterns."
+    },
+    "timing_forecast": {
+      "status": "Weaponized PoC",
+      "time_to_exploit": "< 14 days",
+      "velocity": "Low-Moderate (Historical automated attacks)"
+    },
+    "asset_reachability": {
+      "exposure": "Perimeter Appliances",
+      "criticality": "Inbound Traffic Controller",
+      "blast_radius": "Internal network bridgehead"
+    },
+    "triage_allocation": {
+      "decision": "Prioritized in Sprint Top-8",
+      "rationale": "Proven path traversal threat with high attack surface exposure."
+    }
+  },
+  {
+    "cve_id": "CVE-2023-28252",
+    "name": "Windows CLFS Elevation of Privilege",
+    "component": "microsoft:common_log_file_system",
+    "cvss_score": 7.8,
+    "tier": "HIGH",
+    "exploit_urgency": "Public PoC Available",
+    "action_window": "< 7 Days",
+    "why_prioritized": "Out-of-bounds write in Common Log File System driver leading to elevation of privileges to SYSTEM.",
+    "semantic_text": {
+      "cwe": "CWE-787 (Out-of-bounds Write)",
+      "semantic_risk": "Moderate (0.75)",
+      "signal": "Kernel memory corruption and privilege elevation signals."
+    },
+    "timing_forecast": {
+      "status": "PoC Available",
+      "time_to_exploit": "< 14 days",
+      "velocity": "Low-Moderate (Nokoyawa ransomware driver)"
+    },
+    "asset_reachability": {
+      "exposure": "Server Infrastructure",
+      "criticality": "Backend Compute Nodes",
+      "blast_radius": "Host level root takeover"
+    },
+    "triage_allocation": {
+      "decision": "Prioritized in Sprint Top-9",
+      "rationale": "Kernel exploit frequently chained with initial access vectors."
+    }
+  },
+  {
+    "cve_id": "CVE-2023-21716",
+    "name": "Microsoft Word RTF Heap Corruption RCE",
+    "component": "microsoft:office",
+    "cvss_score": 9.8,
+    "tier": "HIGH",
+    "exploit_urgency": "Public PoC Available",
+    "action_window": "< 7 Days",
+    "why_prioritized": "Heap corruption flaw in RTF parser allows remote code execution via preview pane without user opening file.",
+    "semantic_text": {
+      "cwe": "CWE-787 (Out-of-bounds Write / Heap Corruption)",
+      "semantic_risk": "Moderate (0.78)",
+      "signal": "Rich text format memory corruption triggering code execution."
+    },
+    "timing_forecast": {
+      "status": "PoC Available",
+      "time_to_exploit": "< 14 days",
+      "velocity": "Low (Requires targeted phishing attachment delivery)"
+    },
+    "asset_reachability": {
+      "exposure": "Workstations",
+      "criticality": "Corporate User Endpoints",
+      "blast_radius": "Individual user desktop environment"
+    },
+    "triage_allocation": {
+      "decision": "Prioritized in Sprint Top-10",
+      "rationale": "Fills the 10-patch capacity limit; balances enterprise threat coverage."
+    }
+  },
+  {
+    "cve_id": "CVE-2022-41040",
+    "name": "Microsoft Exchange Server SSRF Elevation",
+    "component": "microsoft:exchange_server",
+    "cvss_score": 8.8,
+    "tier": "ROUTINE",
+    "exploit_urgency": "No Active In-Wild Weaponization",
+    "action_window": "Next Cycle",
+    "why_prioritized": "Server-side request forgery requiring authenticated user access.",
+    "semantic_text": {
+      "cwe": "CWE-918 (Server-Side Request Forgery)",
+      "semantic_risk": "Low-Moderate (0.64)",
+      "signal": "Authenticated backend request forgery."
+    },
+    "timing_forecast": {
+      "status": "Theoretical / Mitigated",
+      "time_to_exploit": "> 30 days",
+      "velocity": "Low"
+    },
+    "asset_reachability": {
+      "exposure": "Mail Server",
+      "criticality": "Corporate Email",
+      "blast_radius": "Limited without secondary exploit chain"
+    },
+    "triage_allocation": {
+      "decision": "Deferred (Exceeds Capacity)",
+      "rationale": "Authentication prerequisite reduces Day-0 risk; deferred to regular patch Tuesday cycle."
+    }
+  },
+  {
+    "cve_id": "CVE-2023-38831",
+    "name": "WinRAR File Extension Spoofing Execution",
+    "component": "rarlab:winrar",
+    "cvss_score": 7.8,
+    "tier": "ROUTINE",
+    "exploit_urgency": "No Active In-Wild Weaponization",
+    "action_window": "Next Cycle",
+    "why_prioritized": "User execution of deceptive archive structure.",
+    "semantic_text": {
+      "cwe": "CWE-434 (Unrestricted Upload / File Extension Spoofing)",
+      "semantic_risk": "Low (0.58)",
+      "signal": "Client side file extension confusion."
+    },
+    "timing_forecast": {
+      "status": "Low Urgency",
+      "time_to_exploit": "> 45 days",
+      "velocity": "Low"
+    },
+    "asset_reachability": {
+      "exposure": "Client Software",
+      "criticality": "Workstations",
+      "blast_radius": "Isolated to workstation session"
+    },
+    "triage_allocation": {
+      "decision": "Deferred (Exceeds Capacity)",
+      "rationale": "High interaction required; deferred behind server and perimeter vulnerabilities."
+    }
+  }
+]
