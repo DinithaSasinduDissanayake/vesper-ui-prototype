@@ -108,16 +108,16 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                 Overview
               </TabsTrigger>
               <TabsTrigger value="component-a" className="text-xs font-medium">
-                NLP (Dinitha)
+                NLP Intelligence
               </TabsTrigger>
               <TabsTrigger value="component-b" className="text-xs font-medium">
-                Survival (Sithmini)
+                Exploit Survival
               </TabsTrigger>
               <TabsTrigger value="component-c" className="text-xs font-medium">
-                Topology (Thilanka)
+                Asset Topology
               </TabsTrigger>
               <TabsTrigger value="component-d" className="text-xs font-medium">
-                Knapsack (Bhuvani)
+                Knapsack Opt
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -208,7 +208,7 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                     <p className="text-xs text-zinc-500 line-clamp-2 font-mono">
                       CWE pattern extraction &amp; semantic keyword weight analysis.
                     </p>
-                    <span className="text-[10px] text-zinc-400 mt-2 block font-medium">Lead: Dinitha</span>
+                    <span className="text-[10px] text-zinc-400 mt-2 block font-medium">Subsystem: NLP Model</span>
                   </Card>
 
                   <Card 
@@ -225,7 +225,7 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                     <p className="text-xs text-zinc-500 line-clamp-2 font-mono">
                       Time-to-exploit survival curve &amp; weaponization velocity window.
                     </p>
-                    <span className="text-[10px] text-zinc-400 mt-2 block font-medium">Lead: Sithmini</span>
+                    <span className="text-[10px] text-zinc-400 mt-2 block font-medium">Subsystem: Survival Analysis</span>
                   </Card>
 
                   <Card 
@@ -242,7 +242,7 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                     <p className="text-xs text-zinc-500 line-clamp-2 font-mono">
                       Network topology boundary graph &amp; microservice reachability.
                     </p>
-                    <span className="text-[10px] text-zinc-400 mt-2 block font-medium">Lead: Thilanka</span>
+                    <span className="text-[10px] text-zinc-400 mt-2 block font-medium">Subsystem: Graph Topology</span>
                   </Card>
 
                   <Card 
@@ -259,14 +259,14 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                     <p className="text-xs text-zinc-500 line-clamp-2 font-mono">
                       Sprint resource constraint math &amp; risk-reduction ROI frontier.
                     </p>
-                    <span className="text-[10px] text-zinc-400 mt-2 block font-medium">Lead: Bhuvani</span>
+                    <span className="text-[10px] text-zinc-400 mt-2 block font-medium">Subsystem: Resource Optimization</span>
                   </Card>
                 </div>
               </div>
             </div>
           )}
 
-          {/* TAB 1: COMPONENT A (DINITHA) — NLP SEMANTIC THREAT INTELLIGENCE */}
+          {/* TAB 1: COMPONENT A — NLP SEMANTIC THREAT INTELLIGENCE */}
           {activeTab === "component-a" && (
             <div className="space-y-5 animate-in fade-in duration-150">
               <div className="flex items-center justify-between pb-2 border-b border-zinc-200">
@@ -274,8 +274,8 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                   <h3 className="text-base font-bold text-zinc-950">Component A: Semantic NLP Threat Indicators</h3>
                   <p className="text-xs text-zinc-500">Advisory text semantics, CWE multi-label classifier &amp; trigger tokens</p>
                 </div>
-                <Badge variant="outline" className="font-mono text-xs bg-zinc-50">
-                  Lead: Dinitha
+                <Badge variant="outline" className="font-mono text-xs bg-zinc-50 text-zinc-700">
+                  Module: Component A (NLP)
                 </Badge>
               </div>
 
@@ -347,7 +347,7 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
             </div>
           )}
 
-          {/* TAB 2: COMPONENT B (SITHMINI) — EXPLOIT TIMING & SURVIVAL ANALYSIS */}
+          {/* TAB 2: COMPONENT B — EXPLOIT TIMING & SURVIVAL ANALYSIS */}
           {activeTab === "component-b" && (
             <div className="space-y-5 animate-in fade-in duration-150">
               <div className="flex items-center justify-between pb-2 border-b border-zinc-200">
@@ -355,8 +355,8 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                   <h3 className="text-base font-bold text-zinc-950">Component B: Exploit Timing &amp; Survival Forecast</h3>
                   <p className="text-xs text-zinc-500">Survival analysis $S(t)$, hazard rate $h(t)$ &amp; weaponization velocity window</p>
                 </div>
-                <Badge variant="outline" className="font-mono text-xs bg-zinc-50">
-                  Lead: Sithmini
+                <Badge variant="outline" className="font-mono text-xs bg-zinc-50 text-zinc-700">
+                  Module: Component B (Survival)
                 </Badge>
               </div>
 
@@ -439,7 +439,7 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
             </div>
           )}
 
-          {/* TAB 3: COMPONENT C (THILANKA) — ASSET REACHABILITY & TOPOLOGY GRAPH */}
+          {/* TAB 3: COMPONENT C — ASSET REACHABILITY & TOPOLOGY GRAPH */}
           {activeTab === "component-c" && (
             <div className="space-y-5 animate-in fade-in duration-150">
               <div className="flex items-center justify-between pb-2 border-b border-zinc-200">
@@ -447,8 +447,8 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                   <h3 className="text-base font-bold text-zinc-950">Component C: Asset Topology &amp; Blast Radius</h3>
                   <p className="text-xs text-zinc-500">Perimeter network boundaries, critical asset exposure &amp; downstream graph reachability</p>
                 </div>
-                <Badge variant="outline" className="font-mono text-xs bg-zinc-50">
-                  Lead: Thilanka
+                <Badge variant="outline" className="font-mono text-xs bg-zinc-50 text-zinc-700">
+                  Module: Component C (Topology)
                 </Badge>
               </div>
 
@@ -509,7 +509,7 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
             </div>
           )}
 
-          {/* TAB 4: COMPONENT D (BHUVANI) — KNAPSACK RESOURCE OPTIMIZATION */}
+          {/* TAB 4: COMPONENT D — KNAPSACK RESOURCE OPTIMIZATION */}
           {activeTab === "component-d" && (
             <div className="space-y-5 animate-in fade-in duration-150">
               <div className="flex items-center justify-between pb-2 border-b border-zinc-200">
@@ -517,8 +517,8 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ cve, onClose }) => {
                   <h3 className="text-base font-bold text-zinc-950">Component D: Multi-Objective Knapsack Optimization</h3>
                   <p className="text-xs text-zinc-500">Remediation capacity constraint modeling &amp; risk-reduction ROI frontier</p>
                 </div>
-                <Badge variant="outline" className="font-mono text-xs bg-zinc-50">
-                  Lead: Bhuvani
+                <Badge variant="outline" className="font-mono text-xs bg-zinc-50 text-zinc-700">
+                  Module: Component D (Knapsack)
                 </Badge>
               </div>
 

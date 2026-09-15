@@ -66,7 +66,7 @@ export default function App() {
 
       {/* Sleek Minimal Footer */}
       <footer className="border-t border-zinc-200 bg-white py-3 text-center text-xs text-zinc-500 font-mono">
-        VESPER Research Architecture • Group J26-DS-344 (Dinitha • Sithmini • Thilanka • Bhuvani) • Enterprise Prototype
+        VESPER Research Architecture • Group J26-DS-344 • Enterprise Prototype
       </footer>
     </div>
   );
