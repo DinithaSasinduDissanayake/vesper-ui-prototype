@@ -27,7 +27,7 @@ export default function App() {
   const deferredCount = totalClusterCves - (immediateCount + scheduledCount);
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-zinc-100 flex flex-col antialiased selection:bg-zinc-700 selection:text-white">
+    <div className="min-h-screen bg-[#fafafa] text-zinc-950 flex flex-col antialiased selection:bg-zinc-200 selection:text-zinc-950">
       {/* Top Navbar */}
       <Header
         capacity={capacity}
@@ -65,7 +65,7 @@ export default function App() {
       />
 
       {/* Sleek Minimal Footer */}
-      <footer className="border-t border-zinc-800 bg-[#0c0c0e] py-3 text-center text-xs text-zinc-400 font-mono">
+      <footer className="border-t border-zinc-200 bg-white py-3 text-center text-xs text-zinc-500 font-mono">
         VESPER Research Architecture • Group J26-DS-344 (Dinitha • Sithmini • Thilanka • Bhuvani) • Enterprise Prototype
       </footer>
     </div>
